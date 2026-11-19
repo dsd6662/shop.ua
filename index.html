@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Накидка на лобове скло з чохлами дзеркал — 499 грн</title>
+  <style>
+    :root {
+      --bg: #f3f4f6;
+      --card: #ffffff;
+      --text: #111827;
+      --muted: #6b7280;
+      --border: #e5e7eb;
+      --accent: #16a34a;
+      --accent-hover: #15803d;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Inter, Arial, sans-serif;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      padding: 16px;
+    }
+
+    .app {
+      width: 100%;
+      max-width: 460px;
+    }
+
+    .screen {
+      display: none;
+      background: var(--card);
+      border-radius: 20px;
+      padding: 20px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+      animation: fadeIn 0.2s ease;
+    }
+    .screen.active {
+      display: block;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(5px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .gallery-main {
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      object-fit: cover;
+      border-radius: 14px;
+      background: #f9fafb;
+      border: 1px solid var(--border);
+      display: block;
+    }
+    .thumbs {
+      display: flex;
+      gap: 8px;
+      margin-top: 10px;
+      overflow-x: auto;
+      padding-bottom: 2px;
+    }
+    .thumbs img {
+      width: 58px;
+      height: 58px;
+      border-radius: 10px;
+      object-fit: cover;
+      border: 2px solid transparent;
+      cursor: pointer;
+      flex-shrink: 0;
+      opacity: 0.75;
+    }
+    .thumbs img.active {
+      border-color: var(--accent);
+      opacity: 1;
+    }
+
+    .product-title {
+      font-size: 20px;
+      font-weight: 800;
+      line-height: 1.3;
+      margin-top: 14px;
+    }
+
+    .price-row {
+      display: flex;
+      align-items: baseline;
+      gap: 10px;
+      margin: 14px 0;
+    }
+    .price-now {
+      font-size: 32px;
+      font-weight: 900;
+    }
+    .price-old {
+      font-size: 17px;
+      color: var(--muted);
+      text-decoration: line-through;
+    }
+
+    .features {
+      list-style: none;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 12px 0;
+      margin-bottom: 18px;
+      font-size: 14px;
+      color: #374151;
+    }
+    .features li {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 4px 0;
+    }
+    .features li::before {
+      content: "✓";
+      color: var(--accent);
+      font-weight: 900;
+    }
+
+    .btn-primary {
+      width: 100%;
+      padding: 16px;
+      border: none;
+      border-radius: 14px;
+      background: var(--accent);
+      color: #fff;
+      font-size: 17px;
+      font-weight: 800;
+      cursor: pointer;
+    }
+    .btn-primary:hover {
+      background: var(--accent-hover);
+    }
+    .btn-primary:disabled {
+      background: #9ca3af;
+      cursor: not-allowed;
+    }
+
+    .top-nav {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+    .back-btn {
+      background: #f3f4f6;
+      border: none;
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      font-size: 18px;
+      cursor: pointer;
+    }
+    .screen-heading {
+      font-size: 19px;
+      font-weight: 800;
+    }
+
+    .field {
+      margin-bottom: 13px;
+      position: relative;
+    }
+    label {
+      display: block;
+      font-size: 13px;
+      font-weight: 700;
+      margin-bottom: 5px;
+      color: #374151;
+    }
+    input {
+      width: 100%;
+      padding: 13px 14px;
+      font-size: 16px;
+      border: 1.5px solid var(--border);
+      border-radius: 12px;
+      outline: none;
+      background: #fff;
+    }
+    input:focus {
+      border-color: var(--accent);
+    }
+
+    .post-tabs {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin-bottom: 13px;
+    }
+    .post-tab {
+      padding: 12px;
+      border: 1.5px solid var(--border);
+      border-radius: 12px;
+      background: #fff;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    .post-tab.active {
+      border-color: var(--accent);
+      background: #f0fdf4;
+      color: #15803d;
+    }
+
+    .dropdown {
+      position: absolute;
+      top: calc(100% + 2px);
+      left: 0;
+      right: 0;
+      background: #fff;
+      border: 1.5px solid var(--accent);
+      border-radius: 12px;
+      max-height: 190px;
+      overflow-y: auto;
+      z-index: 100;
+      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.12);
+      display: none;
+    }
+    .dropdown.open {
+      display: block;
+    }
+    .dropdown-item {
+      padding: 11px 14px;
+      font-size: 14px;
+      cursor: pointer;
+      border-bottom: 1px solid #f3f4f6;
+    }
+    .dropdown-item:hover {
+      background: #f0fdf4;
+    }
+
+    .total-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: #f9fafb;
+      padding: 12px 14px;
+      border-radius: 12px;
+      margin: 14px 0;
+      border: 1px solid var(--border);
+    }
+    .qty-control {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .qty-control button {
+      width: 32px;
+      height: 32px;
+      border: 1px solid var(--border);
+      background: #fff;
+      border-radius: 8px;
+      font-size: 18px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    .error-text {
+      color: #dc2626;
+      font-size: 13px;
+      font-weight: 600;
+      margin-bottom: 10px;
+      display: none;
+    }
+
+    .done-box {
+      text-align: center;
+      padding: 36px 12px;
+      font-size: 20px;
+      font-weight: 800;
+      line-height: 1.5;
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <!-- 1. ТОВАР -->
+    <section class="screen active" id="screen1">
+      <img
+        id="mainImg"
+        class="gallery-main"
+        src="https://images.prom.ua/7851134596_w640_h640_nakidka-na-lobovoe.jpg"
+        alt="Накидка на лобове скло з чохлами дзеркал"
+      />
+
+      <div class="thumbs" id="thumbs">
+        <img src="https://images.prom.ua/7851134596_w640_h640_nakidka-na-lobovoe.jpg" class="active" alt="Фото 1" />
+        <img src="https://images.prom.ua/7851134598_w640_h640_nakidka-na-lobovoe.jpg" alt="Фото 2" />
+        <img src="https://images.prom.ua/7851134600_w640_h640_nakidka-na-lobovoe.jpg" alt="Фото 3" />
+        <img src="https://images.prom.ua/7851134602_w640_h640_nakidka-na-lobovoe.jpg" alt="Фото 4" />
+        <img src="https://images.prom.ua/7851134603_w640_h640_nakidka-na-lobovoe.jpg" alt="Фото 5" />
+      </div>
+
+      <h1 class="product-title">Накидка на лобове скло з чохлами дзеркал SeasonShield (77×160 см)</h1>
+
+      <div class="price-row">
+        <span class="price-now">499 грн</span>
+        <span class="price-old">699 грн</span>
+      </div>
+
+      <ul class="features">
+        <li>Розмір 77 × 160 см + 2 чохли на дзеркала + сумка</li>
+        <li>Захист від снігу, льоду, сонця, дощу, листя та пилу</li>
+        <li>Кріплення дверними клапанами та ремінцями на дзеркала</li>
+      </ul>
+
+      <button type="button" class="btn-primary" id="toStep2Btn">Замовити</button>
+    </section>
+
+    <!-- 2. ОФОРМЛЕННЯ -->
+    <section class="screen" id="screen2">
+      <div class="top-nav">
+        <button type="button" class="back-btn" id="backToStep1">←</button>
+        <div class="screen-heading">Оформлення замовлення</div>
+      </div>
+
+      <form id="orderForm" autocomplete="off">
+        <div class="field">
+          <label for="lastName">Прізвище</label>
+          <input type="text" id="lastName" placeholder="Введіть прізвище" required />
+        </div>
+
+        <div class="field">
+          <label for="firstName">Ім'я</label>
+          <input type="text" id="firstName" placeholder="Введіть ім'я" required />
+        </div>
+
+        <div class="field">
+          <label for="phone">Номер телефону</label>
+          <input type="tel" id="phone" placeholder="+38 (0__) ___-__-__" maxlength="19" required />
+        </div>
+
+        <div class="field">
+          <label for="city">Місто (Україна)</label>
+          <input type="text" id="city" placeholder="Введіть місто..." required />
+          <div class="dropdown" id="cityDropdown"></div>
+        </div>
+
+        <div class="post-tabs">
+          <button type="button" class="post-tab active" id="tabNP">Нова Пошта</button>
+          <button type="button" class="post-tab" id="tabUP">Укрпошта</button>
+        </div>
+
+        <div class="field">
+          <label for="branch" id="branchLabel">Відділення / Поштомат Нової Пошти</label>
+          <input type="text" id="branch" placeholder="Введіть номер або оберіть зі списку" required />
+          <div class="dropdown" id="branchDropdown"></div>
+        </div>
+
+        <div class="total-bar">
+          <div>
+            <div style="font-size:12px;color:var(--muted);">До сплати:</div>
+            <div style="font-size:20px;font-weight:900;"><span id="totalSum">499</span> грн</div>
+          </div>
+          <div class="qty-control">
+            <button type="button" id="qtyMinus">−</button>
+            <strong id="qtyVal">1</strong>
+            <button type="button" id="qtyPlus">+</button>
+          </div>
+        </div>
+
+        <div class="error-text" id="errorText"></div>
+        <button type="submit" class="btn-primary" id="submitOrderBtn">Підтвердити замовлення</button>
+      </form>
+    </section>
+
+    <!-- 3. ПІДТВЕРДЖЕННЯ -->
+    <section class="screen" id="screen3">
+      <div class="done-box">Замовлення прийнято, дякую, гарного дня!</div>
+    </section>
+  </div>
+
+  <script>
+    const BOT_TOKEN = "9263273141:AAGPZFxxiojip0YbqTHrbp7bMQak1xZ_kLY";
+    const CHAT_ID = "8732522479";
+    const PRICE = 499;
+
+    const UKRAINE_CITIES = [
+      "Київ", "Харків", "Одеса", "Дніпро", "Запоріжжя", "Львів", "Кривий Ріг", "Миколаїв",
+      "Вінниця", "Херсон", "Полтава", "Чернігів", "Черкаси", "Житомир", "Суми", "Хмельницький",
+      "Чернівці", "Рівне", "Кам'янське", "Кропивницький", "Івано-Франківськ", "Кременчук", "Тернопіль",
+      "Луцьк", "Біла Церква", "Краматорськ", "Мелітополь", "Ужгород", "Бровари", "Нікополь",
+      "Бердянськ", "Слов'янськ", "Павлоград", "Конотоп", "Умань", "Мукачево", "Олександрія",
+      "Дрогобич", "Ніжин", "Ізмаїл", "Новомосковськ", "Ковель", "Сміла", "Червоноград", "Калуш",
+      "Первомайськ", "Коростень", "Покровськ", "Коломия", "Бориспіль", "Чорноморськ", "Стрий",
+      "Прилуки", "Лозова", "Звягель", "Енергодар", "Нововолинськ", "Горішні Плавні", "Ізюм",
+      "Білгород-Дністровський", "Охтирка", "Марганець", "Фастів", "Лубни", "Світловодськ",
+      "Жовті Води", "Вараш", "Шепетівка", "Подільськ", "Южноукраїнськ", "Миргород", "Ромни",
+      "Покров", "Володимир", "Васильків", "Дубно", "Вишневе", "Нетішин", "Славута", "Боярка",
+      "Жмеринка", "Могилів-Подільський", "Обухів", "Старокостянтинів", "Костопіль", "Вишгород",
+      "Ірпінь", "Буча", "Переяслав", "Трускавець", "Самбір", "Борислав", "Хмільник", "Глухів",
+      "Канів", "Козятин", "Золотоноша", "Лебедин", "Чортків", "Хуст", "Виноградів", "Берегове",
+      "Свалява", "Рахів", "Тячів", "Надвірна", "Долина", "Бурштин", "Кременець", "Збараж",
+      "Теребовля", "Броди", "Сокаль", "Золочів", "Яворів", "Новояворівськ", "Сарни", "Здолбунів",
+      "Острог", "Березне", "Малин", "Бердичів", "Коростишів", "Овруч", "Радомишль", "Гайсин",
+      "Ладижин", "Калинівка", "Бар", "Тульчин", "Бершадь", "Вознесенськ", "Баштанка", "Новий Буг",
+      "Очаків", "Южне", "Роздільна", "Балта", "Арциз", "Кілія", "Рені", "Болград", "Гадяч",
+      "Пирятин", "Карлівка", "Хорол", "Глобине", "Кобеляки", "Зіньків", "Бахмач", "Бобровиця",
+      "Борзна", "Городня", "Ічня", "Корюківка", "Мена", "Новгород-Сіверський", "Носівка", "Сновськ",
+      "Шостка", "Кролевець", "Тростянець", "Білопілля", "Путивль", "Синельникове", "Першотравенськ",
+      "Тернівка", "Вільногірськ", "Підгородне", "П'ятихатки", "Апостолове", "Зеленодольськ",
+      "Вільнянськ", "Оріхів", "Пологи", "Токмак", "Дніпрорудне", "Яготин", "Сквира", "Тетіїв",
+      "Кагарлик", "Миронівка", "Тараща", "Богуслав", "Українка", "Славутич", "Гостомель", "Макарів"
+    ];
+
+    let deliveryService = "Нова Пошта";
+    let quantity = 1;
+
+    function goToStep(step) {
+      document.querySelectorAll(".screen").forEach(s => s.classList.remove("active"));
+      document.getElementById("screen" + step).classList.add("active");
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    document.getElementById("toStep2Btn").addEventListener("click", () => goToStep(2));
+    document.getElementById("backToStep1").addEventListener("click", () => goToStep(1));
+
+    const mainImg = document.getElementById("mainImg");
+    const thumbs = document.querySelectorAll("#thumbs img");
+    thumbs.forEach(img => {
+      img.addEventListener("click", () => {
+        thumbs.forEach(t => t.classList.remove("active"));
+        img.classList.add("active");
+        mainImg.src = img.src;
+      });
+    });
+
+    const phoneInput = document.getElementById("phone");
+    phoneInput.addEventListener("input", e => {
+      let digits = e.target.value.replace(/\D/g, "");
+      if (digits.startsWith("38")) digits = digits.slice(2);
+      if (digits.startsWith("0")) digits = digits.slice(1);
+      digits = digits.slice(0, 9);
+
+      let formatted = "+38 (0";
+      if (digits.length > 0) formatted += digits.slice(0, 2);
+      if (digits.length >= 2) formatted += ") " + digits.slice(2, 5);
+      if (digits.length >= 5) formatted += "-" + digits.slice(5, 7);
+      if (digits.length >= 7) formatted += "-" + digits.slice(7, 9);
+      e.target.value = digits.length ? formatted : "";
+    });
+
+    const cityInput = document.getElementById("city");
+    const cityDropdown = document.getElementById("cityDropdown");
+    const branchInput = document.getElementById("branch");
+    const branchDropdown = document.getElementById("branchDropdown");
+    const branchLabel = document.getElementById("branchLabel");
+
+    function renderCities() {
+      const q = cityInput.value.trim().toLowerCase();
+      const matches = (q ? UKRAINE_CITIES.filter(c => c.toLowerCase().includes(q)) : UKRAINE_CITIES.slice(0, 20)).slice(0, 25);
+      if (!matches.length) {
+        cityDropdown.classList.remove("open");
+        return;
+      }
+      cityDropdown.innerHTML = matches.map(c => `<div class="dropdown-item">${c}</div>`).join("");
+      cityDropdown.classList.add("open");
+    }
+
+    cityInput.addEventListener("focus", renderCities);
+    cityInput.addEventListener("input", renderCities);
+    cityDropdown.addEventListener("click", e => {
+      if (!e.target.classList.contains("dropdown-item")) return;
+      cityInput.value = e.target.textContent;
+      cityDropdown.classList.remove("open");
+      branchInput.value = "";
+    });
+
+    const tabNP = document.getElementById("tabNP");
+    const tabUP = document.getElementById("tabUP");
+
+    tabNP.addEventListener("click", () => {
+      deliveryService = "Нова Пошта";
+      tabNP.classList.add("active");
+      tabUP.classList.remove("active");
+      branchLabel.textContent = "Відділення / Поштомат Нової Пошти";
+      branchInput.value = "";
+    });
+
+    tabUP.addEventListener("click", () => {
+      deliveryService = "Укрпошта";
+      tabUP.classList.add("active");
+      tabNP.classList.remove("active");
+      branchLabel.textContent = "Відділення / Індекс Укрпошти";
+      branchInput.value = "";
+    });
+
+    function renderBranches() {
+      const q = branchInput.value.trim().toLowerCase();
+      const list = [];
+      if (deliveryService === "Нова Пошта") {
+        for (let i = 1; i <= 25; i++) list.push(`Відділення №${i}`);
+        for (let i = 1; i <= 10; i++) list.push(`Поштомат №${i * 100}`);
+      } else {
+        for (let i = 1; i <= 20; i++) list.push(`Відділення Укрпошти №${i}`);
+      }
+      const matches = q ? list.filter(b => b.toLowerCase().includes(q)) : list;
+      if (!matches.length) {
+        branchDropdown.classList.remove("open");
+        return;
+      }
+      branchDropdown.innerHTML = matches.map(b => `<div class="dropdown-item">${b}</div>`).join("");
+      branchDropdown.classList.add("open");
+    }
+
+    branchInput.addEventListener("focus", renderBranches);
+    branchInput.addEventListener("input", renderBranches);
+    branchDropdown.addEventListener("click", e => {
+      if (!e.target.classList.contains("dropdown-item")) return;
+      branchInput.value = e.target.textContent;
+      branchDropdown.classList.remove("open");
+    });
+
+    document.addEventListener("click", e => {
+      if (!e.target.closest("#city") && !e.target.closest("#cityDropdown")) cityDropdown.classList.remove("open");
+      if (!e.target.closest("#branch") && !e.target.closest("#branchDropdown")) branchDropdown.classList.remove("open");
+    });
+
+    const qtyVal = document.getElementById("qtyVal");
+    const totalSum = document.getElementById("totalSum");
+
+    document.getElementById("qtyMinus").addEventListener("click", () => {
+      if (quantity > 1) {
+        quantity--;
+        qtyVal.textContent = quantity;
+        totalSum.textContent = quantity * PRICE;
+      }
+    });
+
+    document.getElementById("qtyPlus").addEventListener("click", () => {
+      quantity++;
+      qtyVal.textContent = quantity;
+      totalSum.textContent = quantity * PRICE;
+    });
+
+    const orderForm = document.getElementById("orderForm");
+    const submitOrderBtn = document.getElementById("submitOrderBtn");
+    const errorText = document.getElementById("errorText");
+
+    orderForm.addEventListener("submit", async e => {
+      e.preventDefault();
+      errorText.style.display = "none";
+
+      const lastName = document.getElementById("lastName").value.trim();
+      const firstName = document.getElementById("firstName").value.trim();
+      const phone = phoneInput.value.trim();
+      const city = cityInput.value.trim();
+      const branch = branchInput.value.trim();
+      const sum = quantity * PRICE;
+
+      if (phone.replace(/\D/g, "").length < 12) {
+        errorText.textContent = "Введіть коректний український номер телефону";
+        errorText.style.display = "block";
+        return;
+      }
+
+      submitOrderBtn.disabled = true;
+      submitOrderBtn.textContent = "Відправляємо...";
+
+      const message =
+        `📦 Нове замовлення\n` +
+        `Товар: Накидка SeasonShield (77×160)\n` +
+        `Кількість: ${quantity} шт. — ${sum} грн\n` +
+        `ПІБ: ${lastName} ${firstName}\n` +
+        `Телефон: ${phone}\n` +
+        `Місто: ${city}\n` +
+        `Доставка: ${deliveryService}, ${branch}`;
+
+      try {
+        const res = await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ chat_id: CHAT_ID, text: message })
+        });
+        const data = await res.json();
+        if (!data.ok) throw new Error(data.description || "Помилка Telegram");
+
+        orderForm.reset();
+        quantity = 1;
+        qtyVal.textContent = "1";
+        totalSum.textContent = PRICE;
+        goToStep(3);
+      } catch (err) {
+        errorText.textContent = "Помилка: " + err.message;
+        errorText.style.display = "block";
+      } finally {
+        submitOrderBtn.disabled = false;
+        submitOrderBtn.textContent = "Підтвердити замовлення";
+      }
+    });
+  </script>
+</body>
+</html>
